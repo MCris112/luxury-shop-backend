@@ -1,0 +1,37 @@
+table users {
+  id bigint [primary key]
+  name varchar
+  lastname varchar
+  email varchar [unique]
+  password text
+}
+
+table products {
+  id bigint [primary key]
+  name varchar
+
+  information varchar(160) [note: "For seo meta description"]
+  content longtext
+}
+
+table orders {
+  id bigint [primary key]
+  user_id bigint
+
+  payment_method varchar [default: "mercadopago", note: "mercadopago"]
+
+  totals float
+}
+
+table order_items {
+  id bigint [primary key]
+  order_id bigint
+  product_id bigint
+  amount int
+  unit_price float
+}
+
+Ref: "order_items"."order_id" < "orders"."id"
+  Ref: users.id > orders.id
+
+Ref: "order_items"."product_id" < "products"."id"
