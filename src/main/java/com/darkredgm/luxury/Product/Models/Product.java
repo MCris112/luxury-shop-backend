@@ -3,6 +3,8 @@ package com.darkredgm.luxury.Product.Models;
 import com.darkredgm.luxury.Order.Models.OrderItem;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import java.util.List;
 
 @Entity
@@ -36,7 +38,8 @@ public class Product {
         joinColumns = @JoinColumn(name = "product_id"),
         inverseJoinColumns = @JoinColumn(name = "category_id")
     )
-    private List<Category> categories;
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private java.util.List<Category> categories = new java.util.ArrayList<>();
 
     @OneToMany(mappedBy = "product")
     @JsonIgnore
@@ -88,6 +91,14 @@ public class Product {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public void setSlug(String slug) {
+        this.slug = slug;
+    }
+
+    public String getSlug() {
+        return slug;
     }
 
     public List<Category> getCategories() {

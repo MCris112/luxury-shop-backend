@@ -1,6 +1,7 @@
 package com.darkredgm.luxury.Product.Controllers;
 
 import com.darkredgm.luxury.Product.Models.Product;
+import com.darkredgm.luxury.Product.ProductData;
 import com.darkredgm.luxury.Product.Services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -38,13 +39,13 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<Product> store(@RequestBody Product product) {
+    public ResponseEntity<Product> store(@RequestBody ProductData product) {
         Product savedProduct = productService.save(product);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedProduct);
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Product> update(@PathVariable Long id, @RequestBody Product product) {
+    public ResponseEntity<Product> update(@PathVariable Long id, @RequestBody ProductData product) {
         return productService.update(id, product)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());

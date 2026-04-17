@@ -2,6 +2,8 @@ package com.darkredgm.luxury.Product.Models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import java.util.List;
 
 @Entity
@@ -17,6 +19,7 @@ public class Category {
     private String slug;
 
     @ManyToMany(mappedBy = "categories")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private List<Product> products;
 
