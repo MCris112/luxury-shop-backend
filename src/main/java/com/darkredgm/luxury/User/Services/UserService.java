@@ -47,4 +47,17 @@ public class UserService {
         }
         return false;
     }
+
+    public User findByEmailOrCreate(String email, String name) {
+        User user = this.userRepository.findByEmail(email);
+
+        if (user != null)
+            return user;
+
+        user = new User();
+        user.setName(name);
+        user.setEmail(email);
+
+        return userRepository.save(user);
+    }
 }

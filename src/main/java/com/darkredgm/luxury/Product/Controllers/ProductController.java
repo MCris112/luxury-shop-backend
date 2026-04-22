@@ -22,8 +22,13 @@ public class ProductController {
     }
 
     @GetMapping
-    public List<Product> index(@RequestParam(required = false) List<String> categories) {
-        return productService.findAll(categories);
+    public List<Product> index(
+            @RequestParam(required = false) List<String> categories,
+            @RequestParam(required = false) String search,
+            @RequestParam(required = false) Double minPrice,
+            @RequestParam(required = false) Double maxPrice
+    ) {
+        return productService.findAll(categories, search, minPrice, maxPrice);
     }
 
     /**

@@ -23,7 +23,7 @@ public class OrderItem {
     /**
      * How many items is buying
      */
-    private int amount;
+    private int quantity;
 
     /**
      * The price per product
@@ -55,12 +55,13 @@ public class OrderItem {
         this.product = product;
     }
 
-    public int getAmount() {
-        return amount;
+
+    public int getQuantity() {
+        return quantity;
     }
 
-    public void setAmount(int amount) {
-        this.amount = amount;
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     public float getUnitPrice() {

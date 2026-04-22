@@ -1,7 +1,10 @@
 package com.darkredgm.luxury.Order.Controllers;
 
 import com.darkredgm.luxury.Order.Models.Order;
+import com.darkredgm.luxury.Order.OrderStore;
 import com.darkredgm.luxury.Order.Services.OrderService;
+import com.darkredgm.luxury.User.Models.User;
+import com.darkredgm.luxury.User.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,9 +18,12 @@ public class OrderController {
 
     private final OrderService orderService;
 
+    private final UserService userService;
+
     @Autowired
-    public OrderController(OrderService orderService) {
+    public OrderController(OrderService orderService,  UserService userService) {
         this.orderService = orderService;
+        this.userService = userService;
     }
 
     @GetMapping
@@ -33,8 +39,13 @@ public class OrderController {
     }
 
     @PostMapping
-    public ResponseEntity<Order> store(@RequestBody Order order) {
-        Order savedOrder = orderService.save(order);
+    public ResponseEntity<Order> store(@RequestBody OrderStore order) {
+        User user = this.userService.findByEmailOrCreate(
+                order.user().email(),
+                order.user().name()
+        );
+
+        Order savedOrder = orderService.save(order, user);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedOrder);
     }
 

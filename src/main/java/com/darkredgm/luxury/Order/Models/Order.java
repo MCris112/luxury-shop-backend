@@ -1,7 +1,10 @@
 package com.darkredgm.luxury.Order.Models;
 
+import com.darkredgm.luxury.Payment.PaymentMethodData;
 import com.darkredgm.luxury.User.Models.User;
 import jakarta.persistence.*;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 import java.util.List;
 
@@ -16,9 +19,15 @@ public class Order {
     @ManyToOne
     private User user;
 
+    private String address;
+
     private String paymentMethod;
 
     private float totals;
+
+    @JdbcTypeCode(SqlTypes.JSON)
+    @Column(columnDefinition = "json")
+    private PaymentMethodData payment;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderItem> items;
@@ -61,5 +70,21 @@ public class Order {
 
     public void setItems(List<OrderItem> items) {
         this.items = items;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public PaymentMethodData getPayment() {
+        return payment;
+    }
+
+    public void setPayment(PaymentMethodData payment) {
+        this.payment = payment;
     }
 }
