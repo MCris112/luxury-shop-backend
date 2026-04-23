@@ -4,6 +4,7 @@ import com.darkredgm.luxury.Order.Models.Order;
 import com.darkredgm.luxury.Order.Models.OrderItem;
 import com.darkredgm.luxury.Payment.PaymentMethodData;
 import com.mercadopago.MercadoPagoConfig;
+import com.mercadopago.client.preference.PreferenceBackUrlsRequest;
 import com.mercadopago.client.preference.PreferenceClient;
 import com.mercadopago.client.preference.PreferenceItemRequest;
 import com.mercadopago.client.preference.PreferenceRequest;
@@ -62,8 +63,16 @@ public class MercadoPagoProvider implements PaymentProvider {
 
         try {
             PreferenceClient client = new PreferenceClient();
-            
+
+            PreferenceBackUrlsRequest backUrls = PreferenceBackUrlsRequest.builder()
+                    .success("http://localhost:3000/checkout/success")
+                    .pending("http://localhost:3000/checkout/error")
+                    .failure("http://localhost:3000/checkout/error")
+                    .build();
+
             PreferenceRequest request = PreferenceRequest.builder()
+                    .backUrls( backUrls )
+                    .binaryMode(true) // Return only success or error
                     .items(preferenceItems)
                     // Adding Payer info helps prevent some MP rejection errors
                     .payer(com.mercadopago.client.preference.PreferencePayerRequest.builder()

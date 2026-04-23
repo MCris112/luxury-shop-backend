@@ -3,8 +3,6 @@ package com.darkredgm.luxury.Order.Models;
 import com.darkredgm.luxury.Payment.PaymentMethodData;
 import com.darkredgm.luxury.User.Models.User;
 import jakarta.persistence.*;
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
 
 import java.util.List;
 
@@ -25,8 +23,7 @@ public class Order {
 
     private float totals;
 
-    @JdbcTypeCode(SqlTypes.JSON)
-    @Column(columnDefinition = "json")
+    @Column(columnDefinition = "LONGTEXT")
     private PaymentMethodData payment;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
