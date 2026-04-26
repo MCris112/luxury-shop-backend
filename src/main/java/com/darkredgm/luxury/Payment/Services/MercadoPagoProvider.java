@@ -65,15 +65,16 @@ public class MercadoPagoProvider implements PaymentProvider {
             PreferenceClient client = new PreferenceClient();
 
             PreferenceBackUrlsRequest backUrls = PreferenceBackUrlsRequest.builder()
-                    .success("http://localhost:3000/checkout/success")
-                    .pending("http://localhost:3000/checkout/error")
-                    .failure("http://localhost:3000/checkout/error")
+                    .success("https://localhost:3000/checkout/success")
+                    .pending("https://localhost:3000/checkout/error")
+                    .failure("https://localhost:3000/checkout/error")
                     .build();
 
             PreferenceRequest request = PreferenceRequest.builder()
                     .backUrls( backUrls )
-                    .binaryMode(true) // Return only success or error
+                    .autoReturn("approved")
                     .items(preferenceItems)
+                    .binaryMode(true)
                     // Adding Payer info helps prevent some MP rejection errors
                     .payer(com.mercadopago.client.preference.PreferencePayerRequest.builder()
                             .email(order.getUser() != null && order.getUser().getEmail() != null && !order.getUser().getEmail().isEmpty() 

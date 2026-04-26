@@ -1,9 +1,12 @@
 package com.darkredgm.luxury.Order.Models;
 
+import com.darkredgm.luxury.Order.OrderStatus;
 import com.darkredgm.luxury.Payment.PaymentMethodData;
 import com.darkredgm.luxury.User.Models.User;
 import jakarta.persistence.*;
 
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 @Entity
@@ -28,6 +31,32 @@ public class Order {
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderItem> items;
+
+    @Enumerated(EnumType.STRING)
+    private OrderStatus status = OrderStatus.PENDING;
+
+    @Column(name = "created_at", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    private Timestamp createdAt;
+
+    public OrderStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(OrderStatus status) {
+        this.status = status;
+    }
+
+    /**
+     * Cuz because orderstatus is null when fetch data from database
+     * without this method, status is always null when fetch data from database
+     * also because entity don't set a default value for status
+     */
+    @PostLoad
+    private void fillDefaultValues() {
+        if (status == null) {
+            status = OrderStatus.PENDING;
+        }
+    }
 
     public Long getId() {
         return id;
@@ -83,5 +112,13 @@ public class Order {
 
     public void setPayment(PaymentMethodData payment) {
         this.payment = payment;
+    }
+
+    public Timestamp getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Timestamp createdAt) {
+        this.createdAt = createdAt;
     }
 }
