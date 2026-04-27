@@ -5,6 +5,9 @@ import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * Mercado pago configuration to get the access token from enviroment
+ */
 @Configuration
 public class MercadoPagoConfiguration {
 

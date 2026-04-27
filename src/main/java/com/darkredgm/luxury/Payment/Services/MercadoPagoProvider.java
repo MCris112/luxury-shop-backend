@@ -18,6 +18,9 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * El provider de mercado pago que procesa el pago
+ */
 @Service
 public class MercadoPagoProvider implements PaymentProvider {
 

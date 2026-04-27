@@ -6,6 +6,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
 
+/**
+ * Convertir de STRING a OBJECT mediante JSON
+ * Queria que se guarde como un longtext en la base de datos, en vez de un json ya que rinde mejor
+ * por lo que es una clase que ayuda a convertir ese texto en json y luego a objeto
+ * y asi poder usarlo
+ */
 @Converter(autoApply = true)
 public class PaymentMethodDataConverter implements AttributeConverter<PaymentMethodData, String> {
 

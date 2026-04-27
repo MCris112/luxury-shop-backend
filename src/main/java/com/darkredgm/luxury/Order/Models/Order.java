@@ -58,6 +58,13 @@ public class Order {
         }
     }
 
+    @PrePersist
+    protected void onCreate() {
+        if (this.createdAt == null) {
+            this.createdAt = new Timestamp(System.currentTimeMillis());
+        }
+    }
+
     public Long getId() {
         return id;
     }

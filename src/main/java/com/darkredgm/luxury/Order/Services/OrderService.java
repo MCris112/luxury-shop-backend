@@ -15,10 +15,17 @@ import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Service for orders
+ */
 @Service
 public class OrderService {
 
@@ -41,12 +48,19 @@ public class OrderService {
         return orderRepository.findById(id);
     }
 
+    /**
+     * Save the order into DB
+     * @param data The structure
+     * @param user
+     * @return
+     */
     public Order save(OrderStore data, User user) {
         Order order = new Order();
         order.setUser(user);
         order.setPaymentMethod(data.paymentMethod());
         order.setAddress(data.address());
         order.setItems(new ArrayList<>());
+
         float total = 0;
 
         if (data.items().isEmpty())
