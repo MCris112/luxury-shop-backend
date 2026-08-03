@@ -1,0 +1,12 @@
+# Proyecto final programación
+
+# Frontend  next js
+https://github.com/MCris112/luxury-shop-frontent
+
+# Backend - SpringBoot
+https://github.com/MCris112/luxury-shop-backend
+
+---
+
+Esta subido con las credenciales de mercado pago, ahi estaran un tiempo, luego sera eliminado
+para que asi se pueda hacer pruebas si gusta
